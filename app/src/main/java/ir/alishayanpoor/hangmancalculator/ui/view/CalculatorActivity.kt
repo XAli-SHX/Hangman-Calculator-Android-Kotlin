@@ -1,6 +1,7 @@
 package ir.alishayanpoor.hangmancalculator.ui.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -13,9 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import ir.alishayanpoor.hangmancalculator.ui.components.CalculatorButton
 import ir.alishayanpoor.hangmancalculator.utils.Constants
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 
 @AndroidEntryPoint
 class CalculatorActivity : ComponentActivity() {
@@ -24,7 +28,25 @@ class CalculatorActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            subscribeObservers()
             CalculatorScreen()
+        }
+    }
+
+    private fun subscribeObservers() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.event.receiveAsFlow().collectLatest {
+                when (it) {
+                    is CalculatorUiEvent.Error -> {
+                        Toast.makeText(this@CalculatorActivity, it.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    is CalculatorUiEvent.StartHangman -> {
+                        Toast.makeText(this@CalculatorActivity, it.result, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
         }
     }
 
