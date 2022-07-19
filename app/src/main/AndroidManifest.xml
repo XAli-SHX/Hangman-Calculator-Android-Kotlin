@@ -15,6 +15,11 @@
         android:theme="@style/Theme.HangmanCalculator"
         tools:targetApi="31">
         <activity
+            android:name=".HangmanActivity"
+            android:exported="false"
+            android:label="@string/title_activity_hangman"
+            android:theme="@style/Theme.HangmanCalculator" />
+        <activity
             android:name=".ui.view.calculator.CalculatorActivity"
             android:exported="true"
             android:label="@string/title_activity_calculator"

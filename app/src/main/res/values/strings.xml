@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Hangman Calculator</string>
     <string name="title_activity_calculator">CalculatorActivity</string>
+    <string name="title_activity_hangman">HangmanActivity</string>
 </resources>
