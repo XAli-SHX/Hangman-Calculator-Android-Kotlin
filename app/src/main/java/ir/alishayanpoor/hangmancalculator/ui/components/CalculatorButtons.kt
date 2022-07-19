@@ -2,9 +2,8 @@ package ir.alishayanpoor.hangmancalculator.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -22,26 +21,18 @@ fun CalculatorButton(
     contentColor: Color = Color.Blue,
     borderStroke: Dp = 1.dp,
     borderColor: Color = Color.Blue,
-    content: @Composable (RowScope.() -> Unit)? = null,
 ) {
-    content?.let {
-        OutlinedButton(onClick = onClick,
-            modifier = modifier.size(50.dp),
-            shape = CircleShape,
-            border = BorderStroke(borderStroke, borderColor),
-            contentPadding = PaddingValues(0.dp),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = contentColor),
-            content = content
-        )
-    } ?: run {
-        OutlinedButton(onClick = onClick,
-            modifier = modifier.size(50.dp),
-            shape = CircleShape,
-            border = BorderStroke(borderStroke, borderColor),
-            contentPadding = PaddingValues(0.dp),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = contentColor)
-        ) {
-            Text(text = text)
-        }
+    OutlinedButton(onClick = onClick,
+        modifier = modifier
+            .fillMaxHeight()
+            .padding(5.dp)
+        /*.padding(12.dp)*/
+        /*.size(50.dp)*/,
+//        shape = CircleShape,
+        border = BorderStroke(borderStroke, borderColor),
+        contentPadding = PaddingValues(0.dp),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = contentColor)
+    ) {
+        Text(text = text)
     }
 }
