@@ -1,5 +1,6 @@
 package ir.alishayanpoor.hangmancalculator.data.repo
 
+import ir.alishayanpoor.hangmancalculator.R
 import ir.alishayanpoor.hangmancalculator.domain.repo.HangmanRepo
 import ir.alishayanpoor.hangmancalculator.exception.AppException
 import ir.alishayanpoor.hangmancalculator.ui.view.hangman.HangmanState
@@ -20,7 +21,16 @@ class HangmanRepoLocal : HangmanRepo {
         }.exhaustive
     }
 
-    override fun getStateImageResourceByCurrentState(currentState: HangmanState): HangmanState {
-        TODO("Not yet implemented")
+    override fun getStateImageResourceByCurrentState(currentState: HangmanState): Int {
+        return when (currentState) {
+            HangmanState.S1Init -> R.drawable.s1_init
+            HangmanState.S2Rope -> R.drawable.s2_rope
+            HangmanState.S3Head -> R.drawable.s3_head
+            HangmanState.S4Body -> R.drawable.s4_body
+            HangmanState.S5RightHand -> R.drawable.s5_right_hand
+            HangmanState.S6LeftHand -> R.drawable.s6_left_hand
+            HangmanState.S7RightFoot -> R.drawable.s7_right_foot
+            HangmanState.S8End -> R.drawable.s8_end
+        }
     }
 }
