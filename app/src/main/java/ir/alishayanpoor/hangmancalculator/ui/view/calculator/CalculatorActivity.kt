@@ -1,4 +1,4 @@
-package ir.alishayanpoor.hangmancalculator.ui.view
+package ir.alishayanpoor.hangmancalculator.ui.view.calculator
 
 import android.os.Bundle
 import android.widget.Toast

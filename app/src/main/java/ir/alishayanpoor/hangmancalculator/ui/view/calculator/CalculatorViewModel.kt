@@ -1,4 +1,4 @@
-package ir.alishayanpoor.hangmancalculator.ui.view
+package ir.alishayanpoor.hangmancalculator.ui.view.calculator
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

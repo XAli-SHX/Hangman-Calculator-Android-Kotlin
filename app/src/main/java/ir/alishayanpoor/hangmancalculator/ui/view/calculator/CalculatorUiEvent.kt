@@ -1,4 +1,4 @@
-package ir.alishayanpoor.hangmancalculator.ui.view
+package ir.alishayanpoor.hangmancalculator.ui.view.calculator
 
 sealed class CalculatorUiEvent {
     data class StartHangman(val result: String) : CalculatorUiEvent()
