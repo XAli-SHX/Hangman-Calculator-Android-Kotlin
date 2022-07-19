@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import ir.alishayanpoor.hangmancalculator.ui.components.CalculatorButton
+import ir.alishayanpoor.hangmancalculator.ui.view.hangman.HangmanActivity
 import ir.alishayanpoor.hangmancalculator.utils.Constants
+import ir.alishayanpoor.hangmancalculator.utils.Navigator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 
@@ -42,6 +44,11 @@ class CalculatorActivity : ComponentActivity() {
                             .show()
                     }
                     is CalculatorUiEvent.StartHangman -> {
+                        Navigator.launchActivity(this@CalculatorActivity,
+                            HangmanActivity::class.java,
+                            HangmanActivity.NAV_KEY_CALC_RESULT,
+                            it.result
+                        )
                         Toast.makeText(this@CalculatorActivity, it.result, Toast.LENGTH_SHORT)
                             .show()
                     }
