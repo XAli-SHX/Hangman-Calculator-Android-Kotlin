@@ -58,9 +58,9 @@ class CalculatorViewModel @Inject constructor(
                 rawText = arithmeticUseCase.delete(state.rawText)
             )
         } catch (e: AppException) {
-            viewModelScope.launch {
+            /*viewModelScope.launch {
                 event.send(CalculatorUiEvent.Error(e.localizedMessage))
-            }
+            }*/
         }
     }
 }
