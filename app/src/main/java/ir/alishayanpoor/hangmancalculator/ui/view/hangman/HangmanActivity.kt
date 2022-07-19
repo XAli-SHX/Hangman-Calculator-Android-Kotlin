@@ -93,7 +93,7 @@ class HangmanActivity : ComponentActivity() {
             Image(painterResource(id = viewModel.getResourceByState()),
                 viewModel.getHangmanContentDescriptionByState())
             Text(text = "The answer is the calculation. Good luck!")
-            NextStateButton()
+//            NextStateButton()
             NumbersToFind()
             NumbersGrid()
         }
