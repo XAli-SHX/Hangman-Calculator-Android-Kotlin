@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CalculatorButtons(
+fun CalculatorButton(
     modifier: Modifier,
     onClick: () -> Unit,
     text: String = "",
