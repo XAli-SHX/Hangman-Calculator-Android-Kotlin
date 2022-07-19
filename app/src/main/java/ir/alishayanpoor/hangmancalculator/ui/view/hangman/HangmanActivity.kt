@@ -5,16 +5,23 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import ir.alishayanpoor.hangmancalculator.utils.Navigator
 import ir.alishayanpoor.hangmancalculator.utils.exhaustive
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -31,6 +38,7 @@ class HangmanActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.calcResult = Navigator.getNavigationStringData(this, NAV_KEY_CALC_RESULT)
         subscribeObservers()
         setContent {
             HangmanScreen()
@@ -44,9 +52,16 @@ class HangmanActivity : ComponentActivity() {
                 when (it) {
                     is HangmanUiEvent.Error -> showError(it)
                     is HangmanUiEvent.GameOver -> gameOver()
+                    is HangmanUiEvent.Win -> win()
                 }.exhaustive
             }
         }
+    }
+
+    private fun win() {
+        Toast.makeText(this@HangmanActivity,
+            "You have earned the calculation result!",
+            Toast.LENGTH_LONG).show()
     }
 
     private fun gameOver() {
@@ -70,12 +85,57 @@ class HangmanActivity : ComponentActivity() {
 
     @Composable
     private fun HangmanScreen() {
-        Column(Modifier.fillMaxSize()) {
+        Column(Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(50.dp),
+            horizontalAlignment = Alignment.CenterHorizontally) {
             Image(painterResource(id = viewModel.getResourceByState()),
-                "state1 - Initialize of hangman")
-            Button(onClick = { viewModel.nextState() }) {
-                Text(text = "Next state")
+                viewModel.getHangmanContentDescriptionByState())
+            Text(text = "The answer is the calculation. Good luck!")
+            NextStateButton()
+            NumbersToFind()
+            NumbersGrid()
+        }
+    }
+
+    @Composable
+    private fun NextStateButton() {
+        Button(onClick = { viewModel.nextState() }) {
+            Text(text = "Next state")
+        }
+    }
+
+    @Composable
+    private fun NumbersToFind() {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            for (i in 0 until viewModel.calcResult.length) {
+                val text = if (viewModel.state.foundedIndexes.any { it == i })
+                    " ${viewModel.calcResult[i]} "
+                else
+                    " _ "
+                Text(text = text)
             }
         }
+    }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    @Composable
+    private fun NumbersGrid() {
+        LazyVerticalGrid(cells = GridCells.Adaptive(64.dp)) {
+            items(viewModel.state.toSelectNumbers.size) { index ->
+                Button(modifier = Modifier.padding(5.dp),
+                    onClick = { viewModel.onNumberClicked(viewModel.state.toSelectNumbers[index]) }) {
+                    Text(text = viewModel.state.toSelectNumbers[index])
+                }
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (!viewModel.lockBackButton)
+            super.onBackPressed()
+        else
+            Toast.makeText(this, "You cannot scape!", Toast.LENGTH_SHORT).show()
     }
 }
