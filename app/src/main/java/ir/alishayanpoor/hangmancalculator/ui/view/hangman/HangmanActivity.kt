@@ -23,6 +23,10 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HangmanActivity : ComponentActivity() {
+    companion object {
+        const val NAV_KEY_CALC_RESULT = "calc_result"
+    }
+
     private val viewModel by viewModels<HangmanViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
