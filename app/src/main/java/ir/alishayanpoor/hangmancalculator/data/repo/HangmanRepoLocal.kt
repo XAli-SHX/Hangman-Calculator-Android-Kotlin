@@ -33,4 +33,17 @@ class HangmanRepoLocal : HangmanRepo {
             HangmanState.S8End -> R.drawable.s8_end
         }
     }
+
+    override fun getStateImageDescriptionByCurrentState(currentState: HangmanState): String {
+        return when (currentState) {
+            HangmanState.S1Init -> "State 1: Hangman init"
+            HangmanState.S2Rope -> "State 2: Hangman rope"
+            HangmanState.S3Head -> "State 3: Hangman head"
+            HangmanState.S4Body -> "State 4: Hangman body"
+            HangmanState.S5RightHand -> "State 5: Hangman right hand"
+            HangmanState.S6LeftHand -> "State 6: Hangman left hand"
+            HangmanState.S7RightFoot -> "State 7: Hangman right foot"
+            HangmanState.S8End -> "State 8: Hangman left foot and, theEnd"
+        }
+    }
 }
