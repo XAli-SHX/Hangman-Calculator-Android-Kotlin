@@ -11,8 +11,8 @@ class ArithmeticUseCase {
         val newString = old + newChar
         if (newString.length > maxCharSize)
             throw AppException("Reached max char size which is $maxCharSize")
-        newChar.forEach { char ->
-            if (Calculator.getArithmeticList().any { it == char.toString() })
+        old.forEach { char ->
+            if (Calculator.getArithmeticList().any { (it == char.toString() && it == newChar) })
                 throw AppException("Currently supporting only one arithmetic operator")
         }
         return newString
