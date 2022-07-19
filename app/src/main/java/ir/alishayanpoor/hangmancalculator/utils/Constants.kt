@@ -12,11 +12,11 @@ object Constants {
     const val CALC_BUTTON_9 = "9"
     const val CALC_BUTTON_0 = "0"
 
-    const val CALC_BUTTON_DIV = " / "
-    const val CALC_BUTTON_MUL = " * "
-    const val CALC_BUTTON_SUB = " - "
-    const val CALC_BUTTON_SUM = " + "
+    const val CALC_BUTTON_DIV = "/"
+    const val CALC_BUTTON_MUL = "*"
+    const val CALC_BUTTON_SUB = "-"
+    const val CALC_BUTTON_SUM = "+"
 
-    const val CALC_BUTTON_DEL = " <- "
-    const val CALC_BUTTON_CALC = " = "
+    const val CALC_BUTTON_DEL = "<--"
+    const val CALC_BUTTON_CALC = "="
 }
