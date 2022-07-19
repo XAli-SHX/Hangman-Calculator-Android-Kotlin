@@ -5,7 +5,7 @@ data class HangmanUiState(
     val toSelectNumbers: List<String> = listOf(
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     ),
-    val selectedNumbers: List<String> = emptyList(),
+    val foundedIndexes: List<Int> = emptyList(),
 )
 
 enum class HangmanState {
