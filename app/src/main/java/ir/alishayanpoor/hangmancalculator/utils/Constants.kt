@@ -17,5 +17,6 @@ object Constants {
     const val CALC_BUTTON_SUB = " - "
     const val CALC_BUTTON_SUM = " + "
 
+    const val CALC_BUTTON_DEL = " <- "
     const val CALC_BUTTON_CALC = " = "
 }
