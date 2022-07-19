@@ -49,8 +49,8 @@ class CalculatorActivity : ComponentActivity() {
                             HangmanActivity.NAV_KEY_CALC_RESULT,
                             it.result
                         )
-                        Toast.makeText(this@CalculatorActivity, it.result, Toast.LENGTH_SHORT)
-                            .show()
+                        /*Toast.makeText(this@CalculatorActivity, it.result, Toast.LENGTH_SHORT)
+                            .show()*/
                     }
                 }
             }
