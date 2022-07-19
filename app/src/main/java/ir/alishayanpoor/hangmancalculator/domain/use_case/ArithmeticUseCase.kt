@@ -19,7 +19,7 @@ class ArithmeticUseCase {
     }
 
     @Throws(AppException::class)
-    fun calculateResult(rawText: String): String {
+    suspend fun calculateResult(rawText: String): String {
         if (rawText.removeWhiteSpaces().isBlank())
             throw AppException("There is nothing to calculate")
         return Calculator.calc(rawText)
