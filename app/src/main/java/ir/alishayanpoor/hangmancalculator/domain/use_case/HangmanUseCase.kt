@@ -2,6 +2,7 @@ package ir.alishayanpoor.hangmancalculator.domain.use_case
 
 import ir.alishayanpoor.hangmancalculator.exception.AppException
 import ir.alishayanpoor.hangmancalculator.ui.view.hangman.HangmanState
+import ir.alishayanpoor.hangmancalculator.utils.exhaustive
 
 class HangmanUseCase {
 
@@ -16,6 +17,6 @@ class HangmanUseCase {
             HangmanState.S6LeftHand -> HangmanState.S7RightFoot
             HangmanState.S7RightFoot -> HangmanState.S8End
             HangmanState.S8End -> throw AppException("Cannot go any further")
-        }
+        }.exhaustive
     }
 }
