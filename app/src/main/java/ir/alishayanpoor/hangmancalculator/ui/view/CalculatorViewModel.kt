@@ -4,9 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.alishayanpoor.hangmancalculator.domain.use_case.ArithmeticUseCase
 import ir.alishayanpoor.hangmancalculator.exception.AppException
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,6 +24,8 @@ class CalculatorViewModel @Inject constructor(
     var state by mutableStateOf(CalculatorUiState())
         private set
 
+    val event = Channel<CalculatorUiEvent>()
+
     fun onCalculatorButtonClicked(value: String) {
         try {
             state = state.copy(
@@ -30,12 +35,21 @@ class CalculatorViewModel @Inject constructor(
                     ARITHMETIC_MAX_CHAR_SIZE)
             )
         } catch (e: AppException) {
+            viewModelScope.launch {
+                event.send(CalculatorUiEvent.Error(e.localizedMessage))
+            }
         }
     }
 
     fun calculate() {
-        val res = arithmeticUseCase.calculateResult(state.rawText)
-        TODO("go to next activity")
+        viewModelScope.launch {
+            try {
+                val res = arithmeticUseCase.calculateResult(state.rawText)
+                event.send(CalculatorUiEvent.StartHangman(res))
+            } catch (e: AppException) {
+                event.send(CalculatorUiEvent.Error(e.localizedMessage))
+            }
+        }
     }
 
     fun deleteChar() {
@@ -44,7 +58,9 @@ class CalculatorViewModel @Inject constructor(
                 rawText = arithmeticUseCase.delete(state.rawText)
             )
         } catch (e: AppException) {
+            viewModelScope.launch {
+                event.send(CalculatorUiEvent.Error(e.localizedMessage))
+            }
         }
     }
-
 }
