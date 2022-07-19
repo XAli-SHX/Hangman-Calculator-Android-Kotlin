@@ -7,19 +7,24 @@ object Calculator {
     fun calc(rawText: String): String {
         var op: String? = null
         val text = rawText.removeWhiteSpaces()
-        text.forEach { char ->
-            op = getArithmeticList().find { it == char.toString() }
-            op?.let { return@forEach }
-        }
+        op = findOp(text)
         op?.let {
             return when (it) {
                 Constants.CALC_BUTTON_SUM -> add(extractNumbers(text, it))
                 Constants.CALC_BUTTON_SUB -> sub(extractNumbers(text, it))
                 Constants.CALC_BUTTON_DIV -> div(extractNumbers(text, it))
                 Constants.CALC_BUTTON_MUL -> mul(extractNumbers(text, it))
-                else -> throw AppException("Not supported yet")
+                else -> throw AppException("Not supported yet - unknown op")
             }.toString()
-        } ?: throw AppException("Not supported yet")
+        } ?: throw AppException("Not supported yet - null op")
+    }
+
+    private fun findOp(text: String): String? {
+        text.forEach { char ->
+            val op = getArithmeticList().find { it == char.toString() }
+            op?.let { return it }
+        }
+        return null
     }
 
     fun extractNumbers(
