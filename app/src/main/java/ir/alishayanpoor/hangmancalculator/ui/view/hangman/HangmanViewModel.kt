@@ -21,7 +21,6 @@ class HangmanViewModel @Inject constructor(
         private set
     val event = Channel<HangmanUiEvent>()
 
-    var lockBackButton = true
     lateinit var calcResult: String
 
     fun nextState() {
@@ -61,7 +60,9 @@ class HangmanViewModel @Inject constructor(
             if (newFoundIndexes.size == calcResult.length)
                 viewModelScope.launch {
                     event.send(HangmanUiEvent.Win)
-                    lockBackButton = false
+                    state = state.copy(
+                        lockBackButton = false
+                    )
                 }
         } catch (e: AppException) {
             nextState()

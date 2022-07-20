@@ -133,7 +133,7 @@ class HangmanActivity : ComponentActivity() {
     }
 
     override fun onBackPressed() {
-        if (!viewModel.lockBackButton)
+        if (!viewModel.state.lockBackButton)
             super.onBackPressed()
         else
             Toast.makeText(this, "You cannot scape!", Toast.LENGTH_SHORT).show()

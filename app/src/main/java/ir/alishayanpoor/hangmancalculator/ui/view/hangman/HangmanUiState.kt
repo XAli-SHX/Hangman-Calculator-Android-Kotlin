@@ -6,6 +6,7 @@ data class HangmanUiState(
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     ),
     val foundedIndexes: List<Int> = emptyList(),
+    val lockBackButton: Boolean = true,
 )
 
 enum class HangmanState {
