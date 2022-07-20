@@ -30,6 +30,9 @@ class HangmanViewModel @Inject constructor(
             )
             if (state.currentState == HangmanState.S8End)
                 viewModelScope.launch {
+                    state = state.copy(
+                        gameInProcess = false
+                    )
                     event.send(HangmanUiEvent.GameOver)
                 }
         } catch (e: AppException) {
@@ -45,6 +48,8 @@ class HangmanViewModel @Inject constructor(
 
     @Throws(AppException::class)
     fun onNumberClicked(number: String) {
+        if (!state.gameInProcess)
+            return
         try {
             state = state.copy(
                 toSelectNumbers = state.toSelectNumbers.remove(number),
@@ -57,15 +62,20 @@ class HangmanViewModel @Inject constructor(
             state = state.copy(
                 foundedIndexes = newFoundIndexes
             )
-            if (newFoundIndexes.size == calcResult.length)
-                viewModelScope.launch {
-                    event.send(HangmanUiEvent.Win)
-                    state = state.copy(
-                        lockBackButton = false
-                    )
-                }
+            checkWin(newFoundIndexes)
         } catch (e: AppException) {
             nextState()
         }
+    }
+
+    private fun checkWin(newFoundIndexes: MutableList<Int>) {
+        if (newFoundIndexes.size == calcResult.length)
+            viewModelScope.launch {
+                event.send(HangmanUiEvent.Win)
+                state = state.copy(
+                    gameInProcess = false,
+                    lockBackButton = false
+                )
+            }
     }
 }
