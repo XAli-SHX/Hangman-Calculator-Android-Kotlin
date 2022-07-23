@@ -36,8 +36,15 @@ class CalculatorViewModel @Inject constructor(
                 rawText = newText
             )
         } catch (e: AppException) {
-            viewModelScope.launch {
-                event.send(CalculatorUiEvent.Error(e.localizedMessage))
+            when (e) {
+                is ArithmeticUseCase.FirstCharOperationException -> {
+
+                }
+                else -> {
+                    viewModelScope.launch {
+                        event.send(CalculatorUiEvent.Error(e.localizedMessage))
+                    }
+                }
             }
         }
     }
