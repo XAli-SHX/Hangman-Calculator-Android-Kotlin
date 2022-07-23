@@ -9,6 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.alishayanpoor.hangmancalculator.domain.use_case.ArithmeticUseCase
 import ir.alishayanpoor.hangmancalculator.exception.AppException
 import ir.alishayanpoor.hangmancalculator.utils.Calculator
+import ir.alishayanpoor.hangmancalculator.utils.Constants
+import ir.alishayanpoor.hangmancalculator.utils.thousandSeparate
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -31,11 +33,12 @@ class CalculatorViewModel @Inject constructor(
     fun onCalculatorButtonClicked(value: String) {
         try {
             val newText = arithmeticUseCase.enterNewChar(
-                state.rawText,
+                state.rawText.replace(Constants.CHAR_THOUSAND_SEPARATOR, ""),
                 value,
-                ARITHMETIC_MAX_CHAR_SIZE)
+                ARITHMETIC_MAX_CHAR_SIZE
+            )
             state = state.copy(
-                rawText = newText
+                rawText = thousandSeparatorWithOperation(newText)
             )
         } catch (e: AppException) {
             when (e) {
@@ -51,14 +54,28 @@ class CalculatorViewModel @Inject constructor(
         }
     }
 
+    private fun thousandSeparatorWithOperation(rawText: String): String {
+        val op = Calculator.getArithmeticList().firstOrNull { rawText.indexOf(it) != -1 }
+            ?: return rawText.thousandSeparate()
+        val numbersData = rawText.split(op)
+        return buildString {
+            append(numbersData[0].thousandSeparate())
+            append(op)
+            if (numbersData.size == 2)
+                append(numbersData[1].thousandSeparate())
+        }
+    }
+
     fun calculate() {
         viewModelScope.launch {
             try {
-                val res = arithmeticUseCase.calculateResult(state.rawText)
+                val res = arithmeticUseCase.calculateResult(
+                    state.rawText.replace(Constants.CHAR_THOUSAND_SEPARATOR, "")
+                )
                 event.send(CalculatorUiEvent.StartHangman(res))
                 delay(1000)
                 state = state.copy(
-                    rawText = res
+                    rawText = res.thousandSeparate()
                 )
             } catch (e: AppException) {
                 when (e) {
