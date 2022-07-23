@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.alishayanpoor.hangmancalculator.domain.use_case.ArithmeticUseCase
 import ir.alishayanpoor.hangmancalculator.exception.AppException
+import ir.alishayanpoor.hangmancalculator.utils.Calculator
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -60,7 +61,11 @@ class CalculatorViewModel @Inject constructor(
                     rawText = res
                 )
             } catch (e: AppException) {
-                event.send(CalculatorUiEvent.Error(e.localizedMessage))
+                when (e) {
+                    is Calculator.NullOperationException -> {}
+                    else ->
+                        event.send(CalculatorUiEvent.Error(e.localizedMessage))
+                }
             }
         }
     }
