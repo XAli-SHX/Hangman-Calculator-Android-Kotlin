@@ -16,7 +16,7 @@ object Calculator {
                 Constants.CALC_BUTTON_DIV -> div(extractNumbers(text, it))
                 Constants.CALC_BUTTON_MUL -> mul(extractNumbers(text, it))
                 else -> throw AppException("Not supported yet - unknown op")
-            }.absoluteValue.toString()
+            }.absoluteValue.toBigDecimal().toPlainString()
         } ?: throw AppException("Not supported yet - null op")
         return res.removeFloatingPoint()
     }
