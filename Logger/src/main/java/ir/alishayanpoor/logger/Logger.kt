@@ -5,11 +5,12 @@ import com.google.gson.GsonBuilder
 
 object Logger {
     fun log(message: String?, tag: String = "Ali") {
-        Log.i(tag, message ?: "NULL")
+        if (BuildConfig.BUILD_TYPE == "debug")
+            Log.i(tag, message ?: "NULL")
     }
 
     fun logDiv(tag: String = "Ali") {
-        Log.i(tag, "----------------------------------------")
+        log("----------------------------------------", tag)
     }
 
     fun jsonLog(message: Any?, tag: String = "Ali") {
