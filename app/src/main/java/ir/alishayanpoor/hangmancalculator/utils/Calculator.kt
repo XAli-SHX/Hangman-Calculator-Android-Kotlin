@@ -1,6 +1,7 @@
 package ir.alishayanpoor.hangmancalculator.utils
 
 import ir.alishayanpoor.hangmancalculator.exception.AppException
+import kotlin.math.absoluteValue
 
 object Calculator {
     @Throws(AppException::class)
@@ -15,7 +16,7 @@ object Calculator {
                 Constants.CALC_BUTTON_DIV -> div(extractNumbers(text, it))
                 Constants.CALC_BUTTON_MUL -> mul(extractNumbers(text, it))
                 else -> throw AppException("Not supported yet - unknown op")
-            }.toString()
+            }.absoluteValue.toString()
         } ?: throw AppException("Not supported yet - null op")
         return res.removeFloatingPoint()
     }
