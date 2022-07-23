@@ -4,7 +4,7 @@ import ir.alishayanpoor.hangmancalculator.exception.AppException
 import kotlin.math.absoluteValue
 
 object Calculator {
-    @Throws(AppException::class)
+
     fun calc(rawText: String): String {
         var op: String? = null
         val text = rawText.removeWhiteSpaces()
@@ -17,7 +17,7 @@ object Calculator {
                 Constants.CALC_BUTTON_MUL -> mul(extractNumbers(text, it))
                 else -> throw AppException("Not supported yet - unknown op")
             }.absoluteValue.toBigDecimal().toPlainString()
-        } ?: throw AppException("Not supported yet - null op")
+        } ?: throw NullOperationException()
         return res.removeFloatingPoint()
     }
 
@@ -62,5 +62,11 @@ object Calculator {
             Constants.CALC_BUTTON_SUB,
             Constants.CALC_BUTTON_SUM,
         )
+    }
+
+    class NullOperationException : AppException() {
+        override fun getLocalizedMessage(): String {
+            return "No operation found"
+        }
     }
 }
