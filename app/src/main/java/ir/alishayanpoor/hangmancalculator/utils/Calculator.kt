@@ -8,8 +8,8 @@ object Calculator {
         var op: String? = null
         val text = rawText.removeWhiteSpaces()
         op = findOp(text)
-        op?.let {
-            return when (it) {
+        val res = op?.let {
+            when (it) {
                 Constants.CALC_BUTTON_SUM -> add(extractNumbers(text, it))
                 Constants.CALC_BUTTON_SUB -> sub(extractNumbers(text, it))
                 Constants.CALC_BUTTON_DIV -> div(extractNumbers(text, it))
@@ -17,6 +17,7 @@ object Calculator {
                 else -> throw AppException("Not supported yet - unknown op")
             }.toString()
         } ?: throw AppException("Not supported yet - null op")
+        return res.removeFloatingPoint()
     }
 
     private fun findOp(text: String): String? {
@@ -30,24 +31,24 @@ object Calculator {
     fun extractNumbers(
         rawText: String,
         op: String,
-    ): Pair<Int, Int> {
+    ): Pair<Double, Double> {
         val numData = rawText.split(op)
-        val num1 = numData[0].toInt()
-        val num2 = numData[1].toInt()
+        val num1 = numData[0].toDouble()
+        val num2 = numData[1].toDouble()
         return Pair(num1, num2)
     }
 
-    fun add(numbers: Pair<Int, Int>) = numbers.first + numbers.second
-    fun sub(numbers: Pair<Int, Int>) = numbers.first - numbers.second
+    fun add(numbers: Pair<Double, Double>) = numbers.first + numbers.second
+    fun sub(numbers: Pair<Double, Double>) = numbers.first - numbers.second
 
     @Throws(AppException::class)
-    fun div(numbers: Pair<Int, Int>): Int {
-        if (numbers.second == 0)
+    fun div(numbers: Pair<Double, Double>): Double {
+        if (numbers.second == 0.toDouble())
             throw AppException("Divide by ZERO is not accepted")
         return numbers.first / numbers.second
     }
 
-    fun mul(numbers: Pair<Int, Int>) = numbers.first * numbers.second
+    fun mul(numbers: Pair<Double, Double>) = numbers.first * numbers.second
 
     fun getArithmeticList(): List<String> {
         return listOf(
