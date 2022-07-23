@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Hangman Calculator"
 include ':app'
-include ':Logger'
