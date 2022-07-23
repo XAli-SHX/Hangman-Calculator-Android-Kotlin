@@ -19,4 +19,6 @@ object Constants {
 
     const val CALC_BUTTON_DEL = "DEL"
     const val CALC_BUTTON_CALC = "="
+
+    const val CHAR_THOUSAND_SEPARATOR = ","
 }
