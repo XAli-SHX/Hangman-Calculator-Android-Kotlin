@@ -140,7 +140,7 @@ class CalculatorActivity : ComponentActivity() {
                     onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_MUL) }
                 )
             }
-            // 0, =, +
+            // 0, -, +, =
             Row(Modifier
                 .fillMaxWidth()
                 .weight(1f), horizontalArrangement = Arrangement.End) {
@@ -156,8 +156,10 @@ class CalculatorActivity : ComponentActivity() {
                     text = Constants.CALC_BUTTON_SUM,
                     onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_SUM) }
                 )
-                CalculatorButton(modifier = Modifier.weight(1f),
+                CalculatorButton(modifier = Modifier
+                    .weight(1f),
                     text = Constants.CALC_BUTTON_CALC,
+                    backgroundColor = Color.Green,
                     onClick = { viewModel.calculate() }
                 )
             }
