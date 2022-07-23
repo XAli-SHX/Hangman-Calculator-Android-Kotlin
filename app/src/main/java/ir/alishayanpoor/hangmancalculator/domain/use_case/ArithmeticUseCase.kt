@@ -2,6 +2,7 @@ package ir.alishayanpoor.hangmancalculator.domain.use_case
 
 import ir.alishayanpoor.hangmancalculator.exception.AppException
 import ir.alishayanpoor.hangmancalculator.utils.Calculator
+import ir.alishayanpoor.hangmancalculator.utils.Calculator.isArithmeticOperation
 import ir.alishayanpoor.hangmancalculator.utils.removeLastChar
 import ir.alishayanpoor.hangmancalculator.utils.removeWhiteSpaces
 
@@ -14,7 +15,7 @@ class ArithmeticUseCase {
         if (Calculator.getArithmeticList().any { (it == newChar) } && old.isBlank())
             throw FirstCharOperationException()
         old.forEach { char ->
-            if (Calculator.getArithmeticList().any { (it == char.toString() && it == newChar) })
+            if (char.toString().isArithmeticOperation() && newChar.isArithmeticOperation())
                 throw AppException("Currently supporting only one arithmetic operator")
         }
         return newString
