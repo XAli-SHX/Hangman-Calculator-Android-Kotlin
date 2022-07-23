@@ -17,12 +17,10 @@
         <activity
             android:name=".ui.view.hangman.HangmanActivity"
             android:exported="false"
-            android:label="@string/title_activity_hangman"
             android:theme="@style/Theme.HangmanCalculator" />
         <activity
             android:name=".ui.view.calculator.CalculatorActivity"
             android:exported="true"
-            android:label="@string/title_activity_calculator"
             android:theme="@style/Theme.HangmanCalculator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
