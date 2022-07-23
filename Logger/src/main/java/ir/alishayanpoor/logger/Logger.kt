@@ -18,8 +18,8 @@ object Logger {
     }
 }
 
-fun <T> T.log(tag: String = "Ali"): T {
-    Logger.log(this.toString(), tag)
+fun <T> T.log(message: String = "", tag: String = "Ali"): T {
+    Logger.log(message + this.toString(), tag)
     return this
 }
 
