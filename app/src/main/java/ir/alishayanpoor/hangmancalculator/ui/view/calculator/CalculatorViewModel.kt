@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.alishayanpoor.hangmancalculator.domain.use_case.ArithmeticUseCase
 import ir.alishayanpoor.hangmancalculator.exception.AppException
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -54,6 +55,10 @@ class CalculatorViewModel @Inject constructor(
             try {
                 val res = arithmeticUseCase.calculateResult(state.rawText)
                 event.send(CalculatorUiEvent.StartHangman(res))
+                delay(1000)
+                state = state.copy(
+                    rawText = res
+                )
             } catch (e: AppException) {
                 event.send(CalculatorUiEvent.Error(e.localizedMessage))
             }
