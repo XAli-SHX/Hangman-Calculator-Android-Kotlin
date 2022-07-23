@@ -29,8 +29,8 @@ class CalculatorActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        subscribeObservers()
         setContent {
-            subscribeObservers()
             CalculatorScreen()
         }
     }
