@@ -8,6 +8,7 @@ data class HangmanUiState(
     val foundedIndexes: List<Int> = emptyList(),
     val lockBackButton: Boolean = true,
     val gameInProcess: Boolean = true,
+    val isWinner: Boolean = false,
 )
 
 enum class HangmanState {

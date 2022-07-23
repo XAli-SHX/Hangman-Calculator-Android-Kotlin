@@ -74,7 +74,8 @@ class HangmanViewModel @Inject constructor(
                 event.send(HangmanUiEvent.Win)
                 state = state.copy(
                     gameInProcess = false,
-                    lockBackButton = false
+                    lockBackButton = false,
+                    isWinner = true
                 )
             }
     }

@@ -12,7 +12,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -96,6 +100,17 @@ class HangmanActivity : ComponentActivity() {
 //            NextStateButton()
             NumbersToFind()
             NumbersGrid()
+            BackButton()
+        }
+    }
+
+    @Composable
+    private fun BackButton() {
+        if (viewModel.state.isWinner) {
+            OutlinedButton(onClick = { onBackPressed() }) {
+                Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
+                Text(text = "Back")
+            }
         }
     }
 
