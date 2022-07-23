@@ -90,7 +90,9 @@ class CalculatorViewModel @Inject constructor(
     fun deleteChar() {
         try {
             state = state.copy(
-                rawText = arithmeticUseCase.delete(state.rawText)
+                rawText = thousandSeparatorWithOperation(arithmeticUseCase.delete(
+                    state.rawText.replace(Constants.CHAR_THOUSAND_SEPARATOR, ""))
+                )
             )
         } catch (e: AppException) {
             /*viewModelScope.launch {
