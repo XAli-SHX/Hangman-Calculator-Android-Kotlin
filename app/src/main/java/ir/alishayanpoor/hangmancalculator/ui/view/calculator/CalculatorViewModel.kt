@@ -28,11 +28,12 @@ class CalculatorViewModel @Inject constructor(
 
     fun onCalculatorButtonClicked(value: String) {
         try {
+            val newText = arithmeticUseCase.enterNewChar(
+                state.rawText,
+                value,
+                ARITHMETIC_MAX_CHAR_SIZE)
             state = state.copy(
-                rawText = arithmeticUseCase.enterNewChar(
-                    state.rawText,
-                    value,
-                    ARITHMETIC_MAX_CHAR_SIZE)
+                rawText = newText
             )
         } catch (e: AppException) {
             viewModelScope.launch {
