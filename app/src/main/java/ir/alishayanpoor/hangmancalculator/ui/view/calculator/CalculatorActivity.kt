@@ -76,7 +76,7 @@ class CalculatorActivity : ComponentActivity() {
                     fontSize = 20.sp
                 )
             }
-            // 7, 8, 9, /
+            // 7, 8, 9, DEL
             Row(Modifier
                 .fillMaxWidth()
                 .weight(1f)) {
@@ -92,12 +92,13 @@ class CalculatorActivity : ComponentActivity() {
                     text = Constants.CALC_BUTTON_9,
                     onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_9) }
                 )
-                CalculatorButton(modifier = Modifier.weight(1f),
-                    text = Constants.CALC_BUTTON_DIV,
-                    onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_DIV) }
+                CalculatorButton(
+                    modifier = Modifier.weight(1f),
+                    text = Constants.CALC_BUTTON_DEL,
+                    onClick = { viewModel.deleteChar() },
                 )
             }
-            // 4, 5, 6, *
+            // 4, 5, 6, /
             Row(Modifier
                 .fillMaxWidth()
                 .weight(1f)) {
@@ -114,11 +115,11 @@ class CalculatorActivity : ComponentActivity() {
                     onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_6) }
                 )
                 CalculatorButton(modifier = Modifier.weight(1f),
-                    text = Constants.CALC_BUTTON_MUL,
-                    onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_MUL) }
+                    text = Constants.CALC_BUTTON_DIV,
+                    onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_DIV) }
                 )
             }
-            // 1, 2, 3, -
+            // 1, 2, 3, *
             Row(Modifier
                 .fillMaxWidth()
                 .weight(1f)) {
@@ -135,8 +136,8 @@ class CalculatorActivity : ComponentActivity() {
                     onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_3) }
                 )
                 CalculatorButton(modifier = Modifier.weight(1f),
-                    text = Constants.CALC_BUTTON_SUB,
-                    onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_SUB) }
+                    text = Constants.CALC_BUTTON_MUL,
+                    onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_MUL) }
                 )
             }
             // 0, =, +
@@ -148,17 +149,16 @@ class CalculatorActivity : ComponentActivity() {
                     onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_0) }
                 )
                 CalculatorButton(modifier = Modifier.weight(1f),
-                    text = Constants.CALC_BUTTON_CALC,
-                    onClick = { viewModel.calculate() }
+                    text = Constants.CALC_BUTTON_SUB,
+                    onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_SUB) }
                 )
                 CalculatorButton(modifier = Modifier.weight(1f),
                     text = Constants.CALC_BUTTON_SUM,
                     onClick = { viewModel.onCalculatorButtonClicked(Constants.CALC_BUTTON_SUM) }
                 )
-                CalculatorButton(
-                    modifier = Modifier.weight(1f),
-                    text = Constants.CALC_BUTTON_DEL,
-                    onClick = { viewModel.deleteChar() },
+                CalculatorButton(modifier = Modifier.weight(1f),
+                    text = Constants.CALC_BUTTON_CALC,
+                    onClick = { viewModel.calculate() }
                 )
             }
         }
