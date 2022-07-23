@@ -50,6 +50,10 @@ object Calculator {
 
     fun mul(numbers: Pair<Double, Double>) = numbers.first * numbers.second
 
+    fun String.isArithmeticOperation(): Boolean {
+        return getArithmeticList().any { this == it }
+    }
+
     fun getArithmeticList(): List<String> {
         return listOf(
             Constants.CALC_BUTTON_DIV,
