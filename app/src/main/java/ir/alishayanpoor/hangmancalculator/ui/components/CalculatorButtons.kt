@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun CalculatorButton(
@@ -19,8 +20,9 @@ fun CalculatorButton(
     onClick: () -> Unit,
     text: String = "",
     contentColor: Color = Color.Blue,
-    borderStroke: Dp = 1.dp,
-    borderColor: Color = Color.Blue,
+    backgroundColor: Color = Color.LightGray,
+    borderStroke: Dp = 0.dp,
+    borderColor: Color = Color.Transparent,
 ) {
     OutlinedButton(onClick = onClick,
         modifier = modifier
@@ -31,8 +33,14 @@ fun CalculatorButton(
 //        shape = CircleShape,
         border = BorderStroke(borderStroke, borderColor),
         contentPadding = PaddingValues(0.dp),
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = contentColor)
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = contentColor,
+            backgroundColor = backgroundColor
+        )
     ) {
-        Text(text = text)
+        Text(
+            text = text,
+            fontSize = 30.sp,
+        )
     }
 }
