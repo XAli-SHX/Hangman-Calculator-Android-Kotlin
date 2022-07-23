@@ -137,14 +137,15 @@ class HangmanActivity : ComponentActivity() {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     private fun NumbersGrid() {
-        LazyVerticalGrid(cells = GridCells.Adaptive(64.dp)) {
-            items(viewModel.state.toSelectNumbers.size) { index ->
-                Button(modifier = Modifier.padding(5.dp),
-                    onClick = { viewModel.onNumberClicked(viewModel.state.toSelectNumbers[index]) }) {
-                    Text(text = viewModel.state.toSelectNumbers[index])
+        if (viewModel.state.gameInProcess)
+            LazyVerticalGrid(cells = GridCells.Adaptive(64.dp)) {
+                items(viewModel.state.toSelectNumbers.size) { index ->
+                    Button(modifier = Modifier.padding(5.dp),
+                        onClick = { viewModel.onNumberClicked(viewModel.state.toSelectNumbers[index]) }) {
+                        Text(text = viewModel.state.toSelectNumbers[index])
+                    }
                 }
             }
-        }
     }
 
     override fun onBackPressed() {
