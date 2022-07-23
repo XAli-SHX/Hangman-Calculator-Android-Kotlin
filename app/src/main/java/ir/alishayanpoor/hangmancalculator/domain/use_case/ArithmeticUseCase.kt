@@ -11,6 +11,8 @@ class ArithmeticUseCase {
         val newString = old + newChar
         if (newString.length > maxCharSize)
             throw AppException("Reached max char size which is $maxCharSize")
+        if (Calculator.getArithmeticList().any { (it == newChar) } && old.isBlank())
+            throw FirstCharOperationException()
         old.forEach { char ->
             if (Calculator.getArithmeticList().any { (it == char.toString() && it == newChar) })
                 throw AppException("Currently supporting only one arithmetic operator")
@@ -41,6 +43,12 @@ class ArithmeticUseCase {
     class DecideByZeroException : AppException() {
         override fun getLocalizedMessage(): String {
             return "Cannot Divide a number by ZERO"
+        }
+    }
+
+    class FirstCharOperationException : AppException() {
+        override fun getLocalizedMessage(): String {
+            return "First char cannot be operation and should be a number"
         }
     }
 }
